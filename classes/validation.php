@@ -1,5 +1,6 @@
 <?php 
-    require_once 'db.php';
+    require_once('db.php');
+
     class Validation 
     {
         public $fnameError = '';
@@ -124,21 +125,17 @@
 
         public function loginForm() {
             $this->validateEmail($_POST["email"]);
-            if (empty($_POST['passws'])) {
-                $this->passwError = "*Please enter password";
-            }
-
             if ( $this->emailError  == "" &&  $this->passwError == "") {
                 $db = new Dbc();
                 $rowVal = $db->userExists($this->email,$_POST['passws']);
                 if($rowVal == false) {
                     $this->loginStatus = "Invalid Username or password";
                 } else {
-                    if($_POST["remember"] == true) {
-                        setcookie("uid",$rowVal['id'],time() + (86400 * 3));
+                    if ($_POST["remember"] == true) {
+                        setcookie("uid",$rowVal['id'], time() + (86400 * 3));
                     }
                     $_SESSION['login'] = true;
-                    $_SESSION['id'] = $row['id'];
+                    $_SESSION['id'] = $rowVal['id'];
                     header("location:homepage.php");
                 }
 
