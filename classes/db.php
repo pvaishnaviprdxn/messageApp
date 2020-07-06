@@ -67,5 +67,12 @@
             }
         }
 
+        public function showUsers() 
+        {
+            $users = "SELECT id,first_name,last_name,email,phone FROM USERS";
+            $res = $this->con->query($users);
+            return $res;
+        }
+
     }
 ?>
