@@ -1,3 +1,18 @@
+<?php 
+    require_once('classes/validation.php');
+
+    session_start();
+    $Validate = new validation();
+    if (isset($_COOKIE['uid'])) {
+        $_SESSION['id'] = $_COOKIE['uid'];
+        header("location:homepage.php");
+        die;
+    }
+    if ($_SERVER["REQUEST_METHOD"] == "POST") { 
+        $Validate->loginForm();
+    }
+
+?>
 <!doctype html>
 <!-- If multi-language site, reconsider usage of html lang declaration here. -->
 <html lang="en"> 
@@ -44,13 +59,13 @@
           <form method="post" enctype="multipart/form-data">
             <div class="form-group">
               <label>Email:</label>
-              <input type="text" name="email" placeholder="Enter your Email">
-              <span class="error"></span>
+              <input type="text" name="email" placeholder="Enter your Email" value="<?php if(isset($_POST['email'])) { echo $_POST['email']; } ?>">
+              <span class="error"><?php echo $Validate->emailError?></span>
             </div>
             <div class="form-group">
               <label>Password:</label>
-              <input type="password" name="passw" placeholder="Enter your passwprd">
-              <span class="error"></span>
+              <input type="password" name="passws" placeholder="Enter your passwprd">
+              <span class="error"><?php echo $Validate->loginStatus?></span>
             </div>
             <div class="form-group">
               <input type="checkbox" name="remember" value="yes">Remember me
