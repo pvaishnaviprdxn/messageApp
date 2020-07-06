@@ -1,3 +1,26 @@
+<?php 
+require_once('classes/db.php'); 
+require_once('classes/chats.php');
+session_start();
+$db = new Dbc();
+if(!isset($_SESSION['id'])) {
+    header("location:index.php");
+}
+
+if (isset($_POST['send'])) { 
+  if(!empty($_POST['msg'])) {
+    $time = date('Y:m:d H:i:s');
+    $chat = new Chats($_SESSION['id'], $_GET['id'], $_POST['msg'], $time);
+    $val= $chat->sendingMsg();
+  }
+}
+
+  $msgs = "SELECT * FROM messages WHERE (id=".$_SESSION['id']." AND reciever_id=".$_GET['id'].") OR (id=".$_GET['id']." AND reciever_id=".$_SESSION['id'].")";
+  $messages = $db->con->query($msgs);
+  $res= $messages->fetch_assoc();
+
+?>
+
 <!doctype html>
 <!-- If multi-language site, reconsider usage of html lang declaration here. -->
 <html lang="en"> 
@@ -35,15 +58,30 @@
       <section>
         <div class="wrapper">
           <div class="chats">
-
+            <?php 
+                while ($row = $messages->fetch_assoc()) {
+                    if ($_SESSION['id'] == $row['id']) {
+                      echo "<p>
+                      <span >".$row['time']."</span>
+                      <span>".$row['texts']."</span>
+                      </p>";
+                    } else {
+                      echo "<p>
+                      <span>".$row['texts']."</span>
+                      <span>".$row['time']."</span>
+                      </p>";
+                  }
+              }
+            
+            ?>
           </div>
         </div>
       </section>
       <section>
         <div class="wrapper">
-          <form method='post' enctype='multipart/form-data'>
+          <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"].'?id='.$_GET['id']);?>">
             <input type="text" name="msg" placeholder="Type your message here">
-            <input type="submit" value = "Send" class="msg-box">  
+            <input type="submit" name="send" value = "send" class="msg-box">  
           </form>
         </div>
       </section>
