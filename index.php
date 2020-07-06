@@ -6,7 +6,6 @@
     if (isset($_COOKIE['uid'])) {
         $_SESSION['id'] = $_COOKIE['uid'];
         header("location:homepage.php");
-        die;
     }
     if ($_SERVER["REQUEST_METHOD"] == "POST") { 
         $Validate->loginForm();
