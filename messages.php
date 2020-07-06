@@ -1,11 +1,3 @@
-<?php
-require_once('classes/db.php'); 
-
-session_start();
-if(!isset($_SESSION['id'])) {
-    header("location:index.php");
-}
-?>
 <!doctype html>
 <!-- If multi-language site, reconsider usage of html lang declaration here. -->
 <html lang="en"> 
@@ -41,17 +33,7 @@ if(!isset($_SESSION['id'])) {
     <!--main section start-->
     <main>
       <section>
-        <div class="wrapper">
-          <h2>Userlist</h2>
-          <table>
-            <tr>
-                <th>Id</th>
-                <th>First Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-            </tr>
-          </table>
-        </div>
+        
       </section>
     </main>
     <!--main section end-->
