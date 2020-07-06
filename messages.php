@@ -33,9 +33,6 @@
     <!--main section start-->
     <main>
       <section>
-<<<<<<< HEAD
-        
-=======
         <div class="wrapper">
           <div class="chats">
 
@@ -49,7 +46,6 @@
             <input type="submit" value = "Send" class="msg-box">  
           </form>
         </div>
->>>>>>> a1a3c336ef9aee839be7fcff4f6e0abbea8451a2
       </section>
     </main>
     <!--main section end-->
