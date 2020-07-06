@@ -43,7 +43,17 @@ if(!isset($_SESSION['id'])) {
     <!--main section start-->
     <main>
       <section>
-        
+      <div class="wrapper">
+          <h2>Userlist</h2>
+          <table>
+            <tr>
+                <th>Id</th>
+                <th>First Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+            </tr>
+          </table>
+        </div>
       </section>
     </main>
     <!--main section end-->
