@@ -59,5 +59,13 @@
                 return false;
             }
         }
+
+        public function session() 
+        {
+            if(isset($_SESSION['login'])) {
+                return $_SESSION['login'];
+            }
+        }
+
     }
 ?>
