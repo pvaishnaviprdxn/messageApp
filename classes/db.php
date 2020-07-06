@@ -34,7 +34,7 @@
         //user check
         public function registeredUser($uemail)
         {
-            $user = $this->con("SELECT * FROM users WHERE email='".$uemail."'");
+            $user = $this->con->query("SELECT * FROM users WHERE email='".$uemail."'");
             if ($user->num_rows > 0) {
                 return true;
             } else {
@@ -43,14 +43,14 @@
         }
 
         //add users
-        public function addUsers($fname, $lname, $email, $phone, $cpassword) {
-            $add = "INSERT INTO users(first_name,last_name,email,phone,password) VALUES ('".$fname."','".$lname."','".$email."','".$phone."','".$password."')";
+        public function addUsers($ufname, $ulname, $email, $phone, $ucpassword) {
+            $add = "INSERT INTO users(first_name, last_name, email, phone, password) VALUES ('".$ufname."', '".$ulname."', '".$email."', '".$phone."', '".$ucpassword."')";
             return $add;
         }
 
-        public function userExists($uemail) 
+        public function userExists($uemail,$upass) 
         {
-            $result = $this->con->query("SELECT * FROM USERS where email='".$uemail."'");
+            $result = $this->con->query("SELECT * FROM USERS WHERE email='".$uemail."' AND password='".$upass."'");
             if($result->num_rows > 0) {
                 if($row = $result->fetch_assoc()) {
                     return $row;
