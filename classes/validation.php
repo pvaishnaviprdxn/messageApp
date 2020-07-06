@@ -108,17 +108,29 @@
             $this->validateConfirmPass($_POST["password"],$_POST["cpassword"]);
             
             if ($this->fnameError == '' && $this->lnameError == '' && $this->emailError == '' && $this->usernameError == '' && $this->cpasswError == '') {
-              /*  $db = new Dbc();
-                $this->formCpassword= password_hash($this->formCpassword,PASSWORD_DEFAULT);
-                $existing = $db->existingUser($this->formUsername);
+                $db = new Dbc();
+                $this->cpassword= password_hash($this->cpassword,PASSWORD_DEFAULT);
+                $exists = $db->registeredUser($this->email);
 
-                if ($existing ==  true) {
-                    header("location:./login-page.php");
+                if ($exists ==  true) {
+                    header("location:./login-page.php?activity='User already exists'");
                 } else {
-                    $reg = $db->registerUser($this->formfName,$this->formlName,$this->formEmail,$this->formUsername,$this->formCpassword);
+                    $reg = $db->addUsers($this->firstname,$this->lastname,$this->email,$this->phone,$this->cpassword);
                     $db->con->query($reg); 
                     header("location:./login-page.php");
-                }*/ 
+                }
+            }
+        }
+
+        public function loginForm() {
+            $this->validateEmail($_POST["email"]);
+            if (empty($_POST['passw'])) {
+                $this->passwError = "Please enter password";
+            }
+
+            if ( $this->emailError  == "" &&  $this->passwError == "") {
+                $db = new Dbc();
+                $rowCount = $db->userExists($this->email);
             }
         }
     }
