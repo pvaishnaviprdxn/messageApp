@@ -113,11 +113,11 @@
                 $exists = $db->registeredUser($this->email);
 
                 if ($exists ==  true) {
-                    header("location:./login-page.php?activity='User already exists'");
+                    header("location:./index.php");
                 } else {
                     $reg = $db->addUsers($this->firstname,$this->lastname,$this->email,$this->phone,$this->cpassword);
                     $db->con->query($reg); 
-                    header("location:./login-page.php");
+                    header("location:./index.php");
                 }
             }
         }
@@ -131,6 +131,17 @@
             if ( $this->emailError  == "" &&  $this->passwError == "") {
                 $db = new Dbc();
                 $rowCount = $db->userExists($this->email);
+
+                if($row == false && $passwordCheck == false) {
+                    $this->loginStatus = "*Invalid username or password";
+                } else {
+                    if($_POST["remember"] == true) {
+                        setcookie("uid",$row['id'],time() + (86400 * 3));
+                    }
+                    $_SESSION['login'] = true;
+                    $_SESSION['id'] = $row['id'];
+                    header("location:homepage.php");
+                }
             }
         }
     }
