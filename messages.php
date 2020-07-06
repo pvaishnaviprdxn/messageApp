@@ -33,7 +33,23 @@
     <!--main section start-->
     <main>
       <section>
+<<<<<<< HEAD
         
+=======
+        <div class="wrapper">
+          <div class="chats">
+
+          </div>
+        </div>
+      </section>
+      <section>
+        <div class="wrapper">
+          <form method='post' enctype='multipart/form-data'>
+            <input type="text" name="msg" placeholder="Type your message here">
+            <input type="submit" value = "Send" class="msg-box">  
+          </form>
+        </div>
+>>>>>>> a1a3c336ef9aee839be7fcff4f6e0abbea8451a2
       </section>
     </main>
     <!--main section end-->
