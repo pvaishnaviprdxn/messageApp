@@ -34,15 +34,17 @@
     <main>
       <section>
         <div class="wrapper">
-          <h2>Userlist</h2>
-          <table>
-            <tr>
-                <th>Id</th>
-                <th>First Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-            </tr>
-          </table>
+          <div class="chats">
+
+          </div>
+        </div>
+      </section>
+      <section>
+        <div class="wrapper">
+          <form method='post' enctype='multipart/form-data'>
+            <input type="text" name="msg" placeholder="Type your message here">
+            <input type="submit" value = "Send" class="msg-box">  
+          </form>
         </div>
       </section>
     </main>
