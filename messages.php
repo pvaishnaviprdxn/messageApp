@@ -1,3 +1,11 @@
+<?php
+require_once('classes/db.php'); 
+
+session_start();
+if(!isset($_SESSION['id'])) {
+    header("location:index.php");
+}
+?>
 <!doctype html>
 <!-- If multi-language site, reconsider usage of html lang declaration here. -->
 <html lang="en"> 
