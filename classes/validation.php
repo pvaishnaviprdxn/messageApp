@@ -1,5 +1,5 @@
 <?php 
-    require_once 'database.php';
+    require_once 'db.php';
     class Validation 
     {
         public $fnameError = '';
@@ -76,7 +76,7 @@
         {
             $this->password = $fpass;
             if (empty($this->password )) {
-                $this->passwError = "*Please create password to go ahead";
+                $this->loginStatus = "*Please create password to go ahead";
             }
             else{
                 if (!preg_match($this->passwordPattern,$this->password)) {
@@ -107,15 +107,15 @@
             $this->validatepassword($_POST["password"]);
             $this->validateConfirmPass($_POST["password"],$_POST["cpassword"]);
             
-            if ($this->fnameError == '' && $this->lnameError == '' && $this->emailError == '' && $this->usernameError == '' && $this->cpasswError == '') {
+            if ($this->fnameError == '' && $this->lnameError == '' && $this->emailError == '' && $this->phoneError == '' && $this->cpasswError == '') {
                 $db = new Dbc();
-                $this->cpassword= password_hash($this->cpassword,PASSWORD_DEFAULT);
+                //$this->cpassword= password_hash($this->cpassword,PASSWORD_DEFAULT);
                 $exists = $db->registeredUser($this->email);
 
                 if ($exists ==  true) {
                     header("location:./index.php");
                 } else {
-                    $reg = $db->addUsers($this->firstname,$this->lastname,$this->email,$this->phone,$this->cpassword);
+                    $reg = $db->addUsers($this->firstName, $this->lastName, $this->email,$this->phone,$this->cpassword);
                     $db->con->query($reg); 
                     header("location:./index.php");
                 }
@@ -124,24 +124,24 @@
 
         public function loginForm() {
             $this->validateEmail($_POST["email"]);
-            if (empty($_POST['passw'])) {
-                $this->passwError = "Please enter password";
+            if (empty($_POST['passws'])) {
+                $this->passwError = "*Please enter password";
             }
 
             if ( $this->emailError  == "" &&  $this->passwError == "") {
                 $db = new Dbc();
-                $rowCount = $db->userExists($this->email);
-
-                if($row == false && $passwordCheck == false) {
-                    $this->loginStatus = "*Invalid username or password";
+                $rowVal = $db->userExists($this->email,$_POST['passws']);
+                if($rowVal == false) {
+                    $this->loginStatus = "Invalid Username or password";
                 } else {
                     if($_POST["remember"] == true) {
-                        setcookie("uid",$row['id'],time() + (86400 * 3));
+                        setcookie("uid",$rowVal['id'],time() + (86400 * 3));
                     }
                     $_SESSION['login'] = true;
                     $_SESSION['id'] = $row['id'];
                     header("location:homepage.php");
                 }
+
             }
         }
     }
