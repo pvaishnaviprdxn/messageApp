@@ -2,6 +2,7 @@
 require_once('classes/db.php'); 
 
 session_start();
+$db = new Dbc();
 if(!isset($_SESSION['id'])) {
     header("location:index.php");
 }
@@ -47,12 +48,24 @@ if(!isset($_SESSION['id'])) {
           <h2>Userlist</h2>
           <table>
             <tr>
-                <th>Id</th>
                 <th>First Name</th>
                 <th>Email</th>
                 <th>Phone</th>
             </tr>
+
+            <?php 
+                $list = $db->showUsers();
+                while($res=$list->fetch_assoc()) {
+                    echo "<tr>
+                            <td><a href='messages.php?id=".$res['id']."'>".$res['first_name']."</td>
+                            <td>".$res['email']."</td>
+                            <td>".$res['phone']."</td>
+                        </tr>";
+                }
+            ?>
           </table>
+        
+
         </div>
       </section>
     </main>
