@@ -22,8 +22,6 @@ class Chats extends Dbc
         $sql = "INSERT INTO messages(id,reciever_id,texts,time) VALUES (".$this->id.",".$this->recieverId.",'".$this->message."','".$this->time."')";
         $dbc->con->query($sql);
     }
-
-    
 }
 
 
