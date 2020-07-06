@@ -1,5 +1,5 @@
 <?php 
-    class Db 
+    class Dbc 
     {
         private $host;
         private $username;
@@ -28,6 +28,35 @@
                 return $this->con;
             } catch (Exception $e) {
                 echo "There is some problem in connection: " . $e->getMessage();
+            }
+        }
+
+        //user check
+        public function registeredUser($uemail)
+        {
+            $user = $this->con("SELECT * FROM users WHERE email='".$uemail."'");
+            if ($user->num_rows > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        //add users
+        public function addUsers($fname, $lname, $email, $phone, $cpassword) {
+            $add = "INSERT INTO users(first_name,last_name,email,phone,password) VALUES ('".$fname."','".$lname."','".$email."','".$phone."','".$password."')";
+            return $add;
+        }
+
+        public function userExists($uemail) 
+        {
+            $result = $this->con->query("SELECT * FROM USERS where email='".$uemail."'");
+            if($result->num_rows > 0) {
+                if($row = $result->fetch_assoc()) {
+                    return $row;
+                }
+            } else {
+                return false;
             }
         }
     }
