@@ -1,5 +1,12 @@
-<!doctype html>
+<?php 
+    require_once('classes/validation.php');
 
+    $Validate = new validation();
+    if ($_SERVER["REQUEST_METHOD"] == "POST") { 
+        $Validate->registerForm();
+    }
+?>
+<!doctype html>
 <!-- If multi-language site, reconsider usage of html lang declaration here. -->
 <html lang="en"> 
 <head>
@@ -45,33 +52,33 @@
           <form method="POST" enctype="multipart/form-data">
             <div class="form-group">
               <label>First name:</label>
-              <input type="text" name="fname" placeholder="Enter First Name">
-              <span class="error"></span>
+              <input type="text" name="fname" placeholder="Enter First Name" value="<?php if(isset($_POST['fname'])) { echo $_POST['fname']; } ?>">
+              <span class="error"><?php echo $Validate->fnameError; ?></span>
             </div>
             <div class="form-group">
               <label>Last name:</label>
-              <input type="text" name="lname" placeholder="Enter Last Name">
-              <span class="error"></span>
+              <input type="text" name="lname" placeholder="Enter Last Name" value="<?php if(isset($_POST['lname'])) { echo $_POST['lname']; } ?>">
+              <span class="error"><?php echo $Validate->lnameError; ?></span>
             </div>
             <div class="form-group">
               <label>Email:</label>
-              <input type="text" name="email" placeholder="eg:name@example.com">
-              <span class="error"></span>
+              <input type="text" name="email" placeholder="eg:name@example.com" value="<?php if(isset($_POST['email'])) { echo $_POST['email']; } ?>">
+              <span class="error"><?php echo $Validate->emailError; ?></span>
             </div>
             <div class="form-group">
               <label>Phone no.:</label>
-              <input type="text" name="phone" placeholder="Enter your phone nu.">
-              <span class="error"></span>
+              <input type="text" name="phone" placeholder="Enter your phone nu." value="<?php if(isset($_POST['phone'])) { echo $_POST['phone']; } ?>">
+              <span class="error"><?php echo $Validate->phoneError; ?></span>
             </div>
             <div class="form-group">
               <label>Password:</label>
               <input type="password" name="password" placeholder="Enter password">
-              <span class="error"></span>
+              <span class="error"><?php echo $Validate->passwError; ?></span>
             </div>
             <div class="form-group">
               <label>Confirm Password:</label>
               <input type="password" name="cpassword" placeholder="Enter confirmed password">
-              <span class="error"></span>
+              <span class="error"><?php echo $Validate->cpasswError; ?></span>
             </div>
             <div class="form-control">
               <input type="submit" value="Register">
