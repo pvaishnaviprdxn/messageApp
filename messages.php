@@ -33,7 +33,16 @@
     <!--main section start-->
     <main>
       <section>
-        
+        <h2>Userlist</h2>
+        <table>
+            <tr>
+                <th>Id</th>
+                <th>First Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+            </tr>
+            
+        </table>
       </section>
     </main>
     <!--main section end-->
